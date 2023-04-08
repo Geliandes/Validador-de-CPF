@@ -3,7 +3,7 @@ function validaCPF(cpf) {
 		return false;
 	} else {
 
-		//checks if all numbers are the same
+		//checks if all numbers are the same (ex: 111.111.111-11)
 		let arrayCpf = cpf.split("");
 		if(arrayCpf.every(number => number === arrayCpf[0])){
 			return false;
@@ -54,7 +54,7 @@ function cpfValidation(e) {
     //Regex to remove all non-number characters
     let cpf = cpfInput.replace(/\D/g, '');
 
-	let resultadoValidacao = validaCPF(cpf);
+	let validationResult = validaCPF(cpf);
 
-	resultadoValidacao ? document.getElementById('success').style.display = 'block' : document.getElementById('error').style.display = 'block';
+	validationResult ? document.getElementById('success').style.display = 'block' : document.getElementById('error').style.display = 'block';
 }
