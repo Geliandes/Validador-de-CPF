@@ -2,6 +2,12 @@ function validaCPF(cpf) {
 	if (cpf.length != 11) {
 		return false;
 	} else {
+
+		//Checks if all numbers are the same
+		if(cpf.split("").every(number => number === arrayCpf[0])){
+			return false;
+		}
+
 		let numbers = cpf.substring(0, 9);
 		let digits = cpf.substring(9);
 
