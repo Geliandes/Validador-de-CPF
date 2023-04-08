@@ -1,52 +1,53 @@
-console.log("Javascript carregado");
-
 function validaCPF(cpf) {
-    if(cpf.length != 11)
-        return false;
+	if (cpf.length != 11) {
+		return false;
+	} else {
+		let numbers = cpf.substring(0, 9);
+		let digits = cpf.substring(9);
 
-    else {
-        var numeros = cpf.substring(0, 9);
-        var digitos = cpf.substring(9);
+		//First digit validation
+		let sum = 0;
+		for (let i = 10; i > 1; i--) {
+			sum += numbers.charAt(10 - i) * i;
+        }
 
-        var soma = 0;
-        for(var i = 10; i > 1; i--)
-            soma += numeros.charAt(10 - i) * i;
+		let firstDigitResult = (sum % 11) < 2 ? 0 : 11 - (sum % 11);
+
+		if (firstDigitResult != digits.charAt(0)) {
+			return false;
+        }
         
-        var resultado = (soma % 11) < 2 ? 0 : 11 - (soma % 11);
+		//Second digit validation
+		sum = 0;
+		numbers = cpf.substring(0, 10);
 
-        //Validação do 1º digito
-        if(resultado != digitos.charAt(0))
-        return false;
+		for (let i = 11; i > 1; i--) {
+			sum += numbers.charAt(11 - i) * i;
+        }
 
-        soma = 0;
-            numeros = cpf.substring(0,10);
+		let secondDigitResult = sum % 11 < 2 ? 0 : 11 - (sum % 11);
 
-        for (var k = 11; k > 1; k--) 
-            soma += numeros.charAt(11 - k) * k;
-        
-        resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+		if (secondDigitResult != digits.charAt(1)) {
+			return false;
+		}
 
-        //Validação do 2º digito
-        if(resultado != digitos.charAt(1))
-        return false;
-
-        return true;
-    }
+		return true;
+	}
 }
 
-
-function validacao() {
-    console.log("Iniciando validação de CPF");
-    document.getElementById('error').style.display = 'none';
-    document.getElementById('success').style.display = 'none';
-
-    var cpf = document.getElementById("cpf_digitado").value;
-
-    var resultadoValidacao = validaCPF(cpf);
-
-    if(resultadoValidacao) 
-        document.getElementById('success').style.display = 'block';
+function cpfValidation(e) {
+	e.preventDefault();
     
-    else 
-        document.getElementById('error').style.display = 'block';
+	console.log("Iniciando validação de CPF");
+	document.getElementById('error').style.display = 'none';
+	document.getElementById('success').style.display = 'none';
+
+	let cpfInput = document.getElementById("cpf_digitado").value;
+
+    //Regex to remove all non-number characters
+    let cpf = cpfInput.replace(/\D/g, '');
+
+	let resultadoValidacao = validaCPF(cpf);
+
+	resultadoValidacao ? document.getElementById('success').style.display = 'block' : document.getElementById('error').style.display = 'block';
 }
