@@ -3,8 +3,9 @@ function validaCPF(cpf) {
 		return false;
 	} else {
 
-		//Checks if all numbers are the same
-		if(cpf.split("").every(number => number === arrayCpf[0])){
+		//checks if all numbers are the same
+		let arrayCpf = cpf.split("");
+		if(arrayCpf.every(number => number === arrayCpf[0])){
 			return false;
 		}
 
