@@ -2,7 +2,6 @@ function validaCPF(cpf) {
 	if (cpf.length != 11) {
 		return false;
 	} else {
-
 		//checks if all numbers are the same (ex: 111.111.111-11)
 		let arrayCpf = cpf.split("");
 		if(arrayCpf.every(number => number === arrayCpf[0])){
@@ -16,21 +15,21 @@ function validaCPF(cpf) {
 		let sum = 0;
 		for (let i = 10; i > 1; i--) {
 			sum += numbers.charAt(10 - i) * i;
-        }
+		}
 
 		let firstDigitResult = (sum % 11) < 2 ? 0 : 11 - (sum % 11);
 
 		if (firstDigitResult != digits.charAt(0)) {
 			return false;
-        }
-        
+		}
+					
 		//Second digit validation
 		sum = 0;
 		numbers = cpf.substring(0, 10);
 
 		for (let i = 11; i > 1; i--) {
 			sum += numbers.charAt(11 - i) * i;
-        }
+		}
 
 		let secondDigitResult = sum % 11 < 2 ? 0 : 11 - (sum % 11);
 
@@ -51,8 +50,8 @@ function cpfValidation(e) {
 
 	let cpfInput = document.getElementById("cpf_digitado").value;
 
-    //Regex to remove all non-number characters
-    let cpf = cpfInput.replace(/\D/g, '');
+  //Regex to remove all non-number characters
+  let cpf = cpfInput.replace(/\D/g, '');
 
 	let validationResult = validaCPF(cpf);
 
